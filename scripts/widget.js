@@ -1,13 +1,11 @@
 import { startWidget } from './modules/widgetService.js';
 
-const widgetInit = (appContainer) => {
+const widgetInit = async (appContainer) => {
 
-  const widget = startWidget();
+  const widget = await startWidget();
 
   appContainer.append(widget);
   
 }
-
-// const app = document.querySelector('#app');
 
 widgetInit(document.querySelector('#app'));

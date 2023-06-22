@@ -8,29 +8,9 @@ const addZero = (time) => {
 
 export const getcurrentDateTime = () => {
 
-  const months = [
-    'янв',
-    'фев',
-    'мар',
-    'апр',
-    'май',
-    'июн',
-    'июл',
-    'сен',
-    'окт',
-    'ноя',
-    'дек'
-  ]; 
+  const months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'сен', 'окт', 'ноя', 'дек']; 
 
-  const weekDays = [
-    'воскресенье',
-    'понедельник',
-    'вторник',
-    'среда',
-    'четверг',
-    'пятница',
-    'суббота'
-  ];
+  const weekDays = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
 
   const date = new Date();
   const year = date.getFullYear();
@@ -38,8 +18,8 @@ export const getcurrentDateTime = () => {
   const month = months[date.getMonth()];
   const dayOfWeek = weekDays[date.getDay()];
 
-  let hours = addZero(date.getHours());
-  let minutes = addZero(date.getMinutes());
+  const hours = addZero(date.getHours());
+  const minutes = addZero(date.getMinutes());
 
   return { year, dayOfMonth, month, dayOfWeek, hours, minutes };
 }
