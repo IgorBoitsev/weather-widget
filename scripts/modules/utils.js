@@ -22,4 +22,74 @@ export const getcurrentDateTime = () => {
   const minutes = addZero(date.getMinutes());
 
   return { year, dayOfMonth, month, dayOfWeek, hours, minutes };
+
+};
+
+export const getWindDirection = (deg) => {
+
+  const directions = [
+    '&#8593;',
+    '&#8598;',
+    '&#8592;',
+    '&#8601;',
+    '&#8595;',
+    '&#8600;',
+    '&#8594;',
+    '&#8599;'
+  ];
+
+  const i = Math.round(deg / 45) % 8;
+
+  return directions[i];
+};
+
+export const calculateDewPoint = (temp, hum) => {
+
+  const a = 17.27,
+        b = 237.7;
+
+  const ft = (a * temp) / (b + temp) + Math.log(hum / 100);
+  const dewPoint = (b * ft) / (a - ft);
+
+  return dewPoint.toFixed(1);
+};
+
+export const getWeatherForecastData = (data) => {
+
+  const weekDaysShort = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+
+  const forecast = data.list.filter(item => 
+    new Date(item.dt_txt).getHours() === 12 && 
+    new Date(item.dt_txt).getDate() > new Date().getDate()
+  );
+  
+  const forecastData = forecast.map(item => {
+    const date = new Date(item.dt_txt);
+
+    const dayOfWeek = weekDaysShort[date.getDay()];
+
+    const weatherIcon = item.weather[0].icon;
+
+    let minTemp = Infinity;
+    let maxTemp = -Infinity;
+
+    for (let i = 0; i < data.list.length; i++) {
+      const temp = data.list[i].main.temp;
+      const tempDate = new Date(data.list[i].dt_txt);
+
+      if (tempDate.getDate() === date.getDate()) {
+        if (temp < minTemp) {
+          minTemp = temp;
+        } else {
+          maxTemp = temp;
+        }
+      }
+    }
+
+
+    return { dayOfWeek, weatherIcon, minTemp, maxTemp };
+  });
+
+  return forecastData;
+
 }
