@@ -1,4 +1,4 @@
-import { calculateDewPoint, getWeatherForecastData, getWindDirection, getcurrentDateTime } from "./utils.js";
+import { calculateDewPoint, getWeatherForecastData, getcurrentDateTime } from "./utils.js";
 
 export const renderWidgetToday = (widget, widgetWeatherData) => {
 
@@ -40,7 +40,7 @@ export const renderWidgetOther = (widget, widgetWeatherData) => {
       <div class="widget__wind">
         <p class="widget__wind-title">Ветер</p>
         <p class="widget__wind-speed">${widgetWeatherData.wind.speed} м/с</p>
-        <p class="widget__wind-text">${getWindDirection(widgetWeatherData.wind.deg)}</p>
+        <p class="widget__wind-text" style="transform: rotate(${widgetWeatherData.wind.deg}deg)">&#8595;</p>
 
       </div>
       <div class="widget__humidity">
@@ -60,7 +60,6 @@ export const renderWidgetOther = (widget, widgetWeatherData) => {
 }
 
 export const renderWidgetForecast = (widget, widgetWeatherData) => {
-  console.log('widgetWeatherData: ', widgetWeatherData);
 
   const widgetForecast = document.createElement('ul');
   widgetForecast.classList.add('widget__forecast');
